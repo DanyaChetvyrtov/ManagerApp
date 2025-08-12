@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: catalogue-ms
+server:
+  port: 4001
