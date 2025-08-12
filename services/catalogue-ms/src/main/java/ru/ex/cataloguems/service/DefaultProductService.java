@@ -1,13 +1,15 @@
 package ru.ex.cataloguems.service;
 
-import ru.ex.cataloguems.entity.Product;
-import ru.ex.cataloguems.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.ex.cataloguems.entity.Product;
+import ru.ex.cataloguems.exception.custom.ProductNotFound;
+import ru.ex.cataloguems.repository.ProductRepository;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -17,32 +19,30 @@ public class DefaultProductService implements ProductService {
 
     @Override
     public List<Product> findAllProducts() {
-        return this.productRepository.findAll();
+        return productRepository.findAll();
     }
 
     @Override
     public Product createProduct(String title, String details) {
-        return this.productRepository.save(new Product(null, title, details));
+        return productRepository.save(new Product(title, details));
     }
 
     @Override
-    public Optional<Product> findProduct(int productId) {
-        return this.productRepository.findById(productId);
+    public Optional<Product> findProduct(UUID productId) {
+        return productRepository.findById(productId);
     }
 
     @Override
-    public void updateProduct(Integer id, String title, String details) {
-        this.productRepository.findById(id)
+    public void updateProduct(UUID id, String title, String details) {
+        productRepository.findById(id)
                 .ifPresentOrElse(product -> {
                     product.setTitle(title);
                     product.setDetails(details);
-                }, () -> {
-                    throw new NoSuchElementException();
-                });
+                }, ProductNotFound::new);
     }
 
     @Override
-    public void deleteProduct(Integer id) {
-        this.productRepository.deleteById(id);
+    public void deleteProduct(UUID id) {
+        productRepository.deleteById(id);
     }
 }

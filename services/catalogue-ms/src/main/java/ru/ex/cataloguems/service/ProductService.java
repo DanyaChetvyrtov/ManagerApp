@@ -4,6 +4,7 @@ import ru.ex.cataloguems.entity.Product;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface ProductService {
 
@@ -11,9 +12,9 @@ public interface ProductService {
 
     Product createProduct(String title, String details);
 
-    Optional<Product> findProduct(int productId);
+    Optional<Product> findProduct(UUID productId);
 
-    void updateProduct(Integer id, String title, String details);
+    void updateProduct(UUID id, String title, String details);
 
-    void deleteProduct(Integer id);
+    void deleteProduct(UUID id);
 }

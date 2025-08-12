@@ -12,28 +12,27 @@ public class InMemoryProductRepository implements ProductRepository {
 
     @Override
     public List<Product> findAll() {
-        return Collections.unmodifiableList(this.products);
+        return Collections.unmodifiableList(products);
     }
 
     @Override
     public Product save(Product product) {
-        product.setId(this.products.stream()
-                .max(Comparator.comparingInt(Product::getId))
-                .map(Product::getId)
-                .orElse(0) + 1);
-        this.products.add(product);
+        if (product.getId() == null)
+            product.setId(UUID.randomUUID());
+
+        products.add(product);
         return product;
     }
 
     @Override
-    public Optional<Product> findById(Integer productId) {
-        return this.products.stream()
-                .filter(product -> Objects.equals(productId, product.getId()))
+    public Optional<Product> findById(UUID productId) {
+        return products.stream()
+                .filter(product -> product.getId().equals(productId))
                 .findFirst();
     }
 
     @Override
-    public void deleteById(Integer id) {
-        this.products.removeIf(product -> Objects.equals(id, product.getId()));
+    public void deleteById(UUID productId) {
+        products.removeIf(product -> product.getId().equals(productId));
     }
 }

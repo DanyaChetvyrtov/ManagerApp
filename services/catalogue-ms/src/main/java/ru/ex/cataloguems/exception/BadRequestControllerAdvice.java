@@ -1,4 +1,4 @@
-package ru.ex.cataloguems.controller;
+package ru.ex.cataloguems.exception;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;

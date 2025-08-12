@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Locale;
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("catalogue-api/products/{productId:\\d+}")
+@RequestMapping("catalogue-api/products/{productId}")
 public class ProductRestController {
 
     private final ProductService productService;
@@ -26,7 +27,7 @@ public class ProductRestController {
     private final MessageSource messageSource;
 
     @ModelAttribute("product")
-    public Product getProduct(@PathVariable("productId") int productId) {
+    public Product getProduct(@PathVariable("productId") UUID productId) {
         return this.productService.findProduct(productId)
                 .orElseThrow(() -> new NoSuchElementException("catalogue.errors.product.not_found"));
     }
@@ -37,7 +38,7 @@ public class ProductRestController {
     }
 
     @PatchMapping
-    public ResponseEntity<?> updateProduct(@PathVariable("productId") int productId,
+    public ResponseEntity<?> updateProduct(@PathVariable("productId") UUID productId,
                                            @Valid @RequestBody UpdateProductDto payload,
                                            BindingResult bindingResult) throws BindException {
         if (bindingResult.hasErrors()) {
@@ -54,7 +55,7 @@ public class ProductRestController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteProduct(@PathVariable("productId") int productId) {
+    public ResponseEntity<Void> deleteProduct(@PathVariable("productId") UUID productId) {
         this.productService.deleteProduct(productId);
         return ResponseEntity.noContent()
                 .build();

@@ -1,8 +1,5 @@
 package ru.ex.cataloguems.controller;
 
-import ru.ex.cataloguems.dto.NewProductDto;
-import ru.ex.cataloguems.entity.Product;
-import ru.ex.cataloguems.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -10,6 +7,9 @@ import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
+import ru.ex.cataloguems.dto.NewProductDto;
+import ru.ex.cataloguems.entity.Product;
+import ru.ex.cataloguems.service.ProductService;
 
 import java.util.List;
 import java.util.Map;
@@ -23,22 +23,21 @@ public class ProductsRestController {
 
     @GetMapping
     public List<Product> findProducts() {
-        return this.productService.findAllProducts();
+        return productService.findAllProducts();
     }
 
     @PostMapping
-    public ResponseEntity<?> createProduct(@Valid @RequestBody NewProductDto payload,
-                                           BindingResult bindingResult,
-                                           UriComponentsBuilder uriComponentsBuilder)
-            throws BindException {
+    public ResponseEntity<?> createProduct(
+            @Valid @RequestBody NewProductDto payload,
+            BindingResult bindingResult,
+            UriComponentsBuilder uriComponentsBuilder
+    ) throws BindException {
         if (bindingResult.hasErrors()) {
-            if (bindingResult instanceof BindException exception) {
-                throw exception;
-            } else {
-                throw new BindException(bindingResult);
-            }
+            if (bindingResult instanceof BindException exception) throw exception;
+            else throw new BindException(bindingResult);
+
         } else {
-            Product product = this.productService.createProduct(payload.title(), payload.details());
+            var product = productService.createProduct(payload.title(), payload.details());
             return ResponseEntity
                     .created(uriComponentsBuilder
                             .replacePath("/catalogue-api/products/{productId}")
