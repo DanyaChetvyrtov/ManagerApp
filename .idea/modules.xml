@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/catalogue-ms.main.iml" filepath="$PROJECT_DIR$/.idea/modules/catalogue-ms.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/manager-ms.main.iml" filepath="$PROJECT_DIR$/.idea/modules/manager-ms.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/my-repo.iml" filepath="$PROJECT_DIR$/.idea/my-repo.iml" />
+    </modules>
+  </component>
+</project>
