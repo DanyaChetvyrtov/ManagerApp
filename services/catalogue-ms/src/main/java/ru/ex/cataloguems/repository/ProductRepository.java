@@ -1,18 +1,12 @@
 package ru.ex.cataloguems.repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 import ru.ex.cataloguems.entity.Product;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
-public interface ProductRepository {
-
-    List<Product> findAll();
-
-    Product save(Product product);
-
-    Optional<Product> findById(UUID productId);
-
-    void deleteById(UUID id);
+@Repository
+public interface ProductRepository extends JpaRepository<Product, UUID> {
+    Iterable<Product> findAllByTitleLikeIgnoreCase(String filter);
 }

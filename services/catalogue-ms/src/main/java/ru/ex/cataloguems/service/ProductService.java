@@ -2,13 +2,10 @@ package ru.ex.cataloguems.service;
 
 import ru.ex.cataloguems.entity.Product;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 public interface ProductService {
-
-    List<Product> findAllProducts();
 
     Product createProduct(String title, String details);
 
@@ -17,4 +14,6 @@ public interface ProductService {
     void updateProduct(UUID id, String title, String details);
 
     void deleteProduct(UUID id);
+
+    Iterable<Product> findAllProducts(String filter);
 }

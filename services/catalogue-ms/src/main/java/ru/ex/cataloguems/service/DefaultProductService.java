@@ -2,12 +2,11 @@ package ru.ex.cataloguems.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.ex.cataloguems.entity.Product;
 import ru.ex.cataloguems.exception.custom.ProductNotFound;
 import ru.ex.cataloguems.repository.ProductRepository;
 
-import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -18,11 +17,16 @@ public class DefaultProductService implements ProductService {
     private final ProductRepository productRepository;
 
     @Override
-    public List<Product> findAllProducts() {
-        return productRepository.findAll();
+    public Iterable<Product> findAllProducts(String filter) {
+        if (filter != null && !filter.isBlank()) {
+            return productRepository.findAllByTitleLikeIgnoreCase("%" + filter + "%");
+        } else {
+            return productRepository.findAll();
+        }
     }
 
     @Override
+    @Transactional
     public Product createProduct(String title, String details) {
         return productRepository.save(new Product(title, details));
     }
@@ -33,6 +37,7 @@ public class DefaultProductService implements ProductService {
     }
 
     @Override
+    @Transactional
     public void updateProduct(UUID id, String title, String details) {
         productRepository.findById(id)
                 .ifPresentOrElse(product -> {
@@ -42,6 +47,7 @@ public class DefaultProductService implements ProductService {
     }
 
     @Override
+    @Transactional
     public void deleteProduct(UUID id) {
         productRepository.deleteById(id);
     }
