@@ -4,3 +4,7 @@ spring:
 
 server:
   port: 4000
+
+services:
+  catalogue:
+    uri: http://localhost:4001

@@ -1,4 +1,4 @@
-package ru.ex.managerms.service;
+package ru.ex.managerms.client;
 
 import ru.ex.managerms.entity.Product;
 
@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface ProductService {
+public interface ProductsRestClient {
 
     List<Product> findAllProducts();
 
@@ -14,8 +14,8 @@ public interface ProductService {
 
     Optional<Product> findProduct(UUID productId);
 
-    void updateProduct(UUID id, String title, String details);
+    void updateProduct(UUID productId, String title, String details);
 
-    void deleteProduct(UUID id);
+    void deleteProduct(UUID productId);
 
 }
