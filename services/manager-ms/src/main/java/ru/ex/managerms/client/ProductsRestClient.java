@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public interface ProductsRestClient {
 
-    List<Product> findAllProducts();
+    List<Product> findAllProducts(String filter);
 
     Product createProduct(String title, String details);
 
