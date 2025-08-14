@@ -2,9 +2,22 @@ spring:
   application:
     name: manager-ms
 
+  datasource:
+    url: jdbc:postgresql://localhost:5432/managed_users
+    username: postgres
+    password: root
+
+  flyway:
+    schemas:
+      - public
+      - user_management
+
+
 server:
   port: 4000
 
 services:
   catalogue:
     uri: http://localhost:4001
+    username: catalogue_service_user
+    password: root
