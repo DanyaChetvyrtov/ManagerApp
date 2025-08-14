@@ -1,0 +1,13 @@
+@path=http://localhost:4001/catalogue-api/products
+
+# Y2F0YWxvZ3VlX3NlcnZpY2VfdXNlcjpyb290 == catalogue_service_user:root
+
+### GET request catalogue
+GET {{path}}
+Authorization: Basic Y2F0YWxvZ3VlX3NlcnZpY2VfdXNlcjpyb290
+
+### GET request catalogue with filter
+GET {{path}}Y2F0YWxvZ3VlX3NlcnZpY2VfdXNlcjpyb290
+Authorization: Basic Y2F0YWxvZ3VlX3NlcnZpY2VfdXNlcjpyb290
+
+###
